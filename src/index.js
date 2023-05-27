@@ -16,12 +16,6 @@ fastify.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
 });
 
-fastify.get("/", async (req, reply) => {
-  reply.type("application/json").code(200);
-
-  return { data: "hello, world" };
-});
-
 fastify.listen({ port: 3000 }, (err, address) => {
   if (err) throw err;
 });
