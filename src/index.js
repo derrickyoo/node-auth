@@ -7,26 +7,21 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const app = Fastify();
+const fastify = Fastify({
+  logger: true,
+});
 
-async function startApp() {
-  try {
-    app.register(fastifyStatic, {
-      root: path.join(__dirname, "public"),
-    });
+// Add plugin
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, "public"),
+});
 
-    app.get("/", {}, (req, reply) => {
-      reply.send({
-        data: "hello world",
-      });
-    });
-    await app.listen({
-      port: 3000,
-    });
-    console.log("Server listening at port: 3000");
-  } catch (err) {
-    console.error(err);
-  }
-}
+fastify.get("/", async (req, reply) => {
+  reply.type("application/json").code(200);
 
-startApp();
+  return { data: "hello, world" };
+});
+
+fastify.listen({ port: 3000 }, (err, address) => {
+  if (err) throw err;
+});
