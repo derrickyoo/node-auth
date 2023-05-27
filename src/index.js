@@ -1,7 +1,11 @@
-import Fastify from "fastify";
+import "./env.js";
 import fastifyStatic from "@fastify/static";
+import Fastify from "fastify";
 import path from "path";
 import { fileURLToPath } from "url";
+
+// dotenv
+console.log(process.env.APP_NAME);
 
 // ESM specific to get access to the __dirname
 const __filename = fileURLToPath(import.meta.url);
