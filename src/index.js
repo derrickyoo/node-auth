@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { run } from "./db.js";
 import { signup } from "./accounts/signup.js";
+import { authorize } from "./accounts/authorize.js";
 
 // dotenv
 console.log(process.env.APP_NAME);
@@ -33,6 +34,17 @@ async function start() {
         const userId = await signup(data);
 
         console.log(userId);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    fastify.post("/api/signin", {}, async (req) => {
+      try {
+        const data = req.body;
+
+        // TODO: authorize user
+        await authorize(data);
       } catch (err) {
         console.error(err);
       }
