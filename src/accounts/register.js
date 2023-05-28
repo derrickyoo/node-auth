@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 
 const { genSalt, hash } = bcrypt;
 
-async function signup(data) {
+async function register(data) {
   // Dynamic import (useful only when needed)
   const { user } = await import("../user/user.js");
 
@@ -17,7 +17,7 @@ async function signup(data) {
 
   // 4. ✨ Store in database
   const result = await user.insertOne({
-    ...user,
+    ...data,
     email: {
       address: email,
       verified: false,
@@ -28,4 +28,4 @@ async function signup(data) {
   return result.insertedId;
 }
 
-export { signup };
+export { register };

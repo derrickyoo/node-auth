@@ -1,11 +1,12 @@
 import "./env.js";
 import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
+import fastifyCookie from "@fastify/cookie";
 import path from "path";
 import { fileURLToPath } from "url";
-import { run } from "./db.js";
-import { signup } from "./accounts/signup.js";
 import { authorize } from "./accounts/authorize.js";
+import { register } from "./accounts/register.js";
+import { run } from "./db.js";
 
 // dotenv
 console.log(process.env.APP_NAME);
@@ -14,7 +15,7 @@ console.log(process.env.APP_NAME);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const fastify = Fastify({
+const app = Fastify({
   logger: true,
 });
 
@@ -24,14 +25,19 @@ const fastify = Fastify({
 async function start() {
   try {
     // Add plugin
-    fastify.register(fastifyStatic, {
+    app.register(fastifyCookie, {
+      secret: process.env.COOKIE_SIGNATURE,
+    });
+
+    // Add plugin
+    app.register(fastifyStatic, {
       root: path.join(__dirname, "../public"),
     });
 
-    fastify.post("/api/signup", {}, async (req) => {
+    app.post("/api/signup", {}, async (req) => {
       try {
         const data = req.body;
-        const userId = await signup(data);
+        const userId = await register(data);
 
         console.log(userId);
       } catch (err) {
@@ -39,7 +45,7 @@ async function start() {
       }
     });
 
-    fastify.post("/api/signin", {}, async (req, reply) => {
+    app.post("/api/signin", {}, async (req, reply) => {
       try {
         const data = req.body;
         const isAuthorized = await authorize(data);
@@ -49,16 +55,25 @@ async function start() {
         // 1. 🪙 Generate auth tokens
 
         // 2. 🍪 Set HttpOnly cookies
+        reply.setCookie("testCookie", "test cookie", {
+          path: "/",
+          domain: "locahost",
+          httpOnly: true,
+          // secure: true // Requires HTTPS
+        });
 
         // 3. ✅ Send back in the response (or reply)
+        reply.send({
+          data: "testing",
+        });
       } catch (err) {
         console.error(err);
       }
     });
 
-    await fastify.listen({ port: 3000 });
+    await app.listen({ port: 3000 });
   } catch (err) {
-    fastify.log.error(err);
+    app.log.error(err);
     process.exit(1);
   }
 }
