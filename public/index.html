@@ -9,34 +9,44 @@
   <body>
     <main>
       <h1>Node Authentication</h1>
-      <section id="signUpScreen">
+      <section id="sign-up-screen">
         <h2>Sign up</h2>
-        <form id="signUpForm">
+        <form id="sign-up-form">
           <div>
-            <label for="email">Email: </label>
+            <label for="sign-up-field-email">Email: </label>
             <input
               required
               type="email"
-              id="signUpemail"
+              id="sign-up-field-email"
               name="email"
               autocomplete="email"
             />
           </div>
           <div>
-            <label for="fullName">Full Name: </label>
-            <input required type="text" id="signUpFullName" name="fullName" />
+            <label for="sign-up-field-full-name">Full Name: </label>
+            <input
+              required
+              type="text"
+              id="sign-up-field-full-name"
+              name="fullName"
+            />
           </div>
           <div>
-            <label for="userName">Username: </label>
-            <input required type="text" id="signUpUserName" name="userName" />
+            <label for="sign-up-field-username">Username: </label>
+            <input
+              required
+              type="text"
+              id="sign-up-field-username"
+              name="username"
+            />
           </div>
           <div>
-            <label for="password">Password: </label>
+            <label for="sign-up-field-password">Password: </label>
             <input
               required
               minlength="8"
               type="password"
-              id="signUpPassword"
+              id="sign-up-field-password"
               name="password"
               aria-describedby="password-minlength"
               autocomplete="new-password"
@@ -45,26 +55,26 @@
           <button type="submit">Sign up</button>
         </form>
       </section>
-      <section id="signInScreen">
+      <section id="sign-in-screen">
         <h2>Sign in</h2>
-        <form id="signInForm">
+        <form id="sign-in-form">
           <div>
-            <label for="email">Email: </label>
+            <label for="sign-in-field-email">Email: </label>
             <input
               required
               type="email"
-              id="signInEmail"
+              id="sign-in-field-email"
               name="email"
               autocomplete="email"
             />
           </div>
           <div>
-            <label for="password">Password: </label>
+            <label for="sign-in-field-password">Password: </label>
             <input
               required
               minlength="8"
               type="password"
-              id="signInPassword"
+              id="sign-in-field-password"
               name="password"
               aria-describedby="password-minlength"
               autocomplete="new-password"
@@ -79,7 +89,7 @@
       (function () {
         // Not DRY code, but good enough for now for demonstration purposes
 
-        const signUpForm = document.querySelector("#signUpForm");
+        const signUpForm = document.querySelector("#sign-up-form");
 
         signUpForm.addEventListener("submit", async (e) => {
           e.preventDefault();
@@ -110,7 +120,7 @@
           }
         });
 
-        const signInForm = document.querySelector("#signInForm");
+        const signInForm = document.querySelector("#sign-in-form");
 
         signInForm.addEventListener("submit", async (e) => {
           e.preventDefault();
