@@ -4,44 +4,76 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Node Auth</title>
+    <title>node-auth</title>
   </head>
   <body>
-    <h1>Node Authentication</h1>
-    <h2>Sign up</h2>
-    <form id="signUpForm">
-      <div>
-        <label for="email">Email: </label>
-        <input
-          required
-          type="email"
-          id="email"
-          name="email"
-          autocomplete="email"
-        />
-      </div>
-      <div>
-        <label for="fullName">Full Name: </label>
-        <input required type="text" id="fullName" name="fullName" />
-      </div>
-      <div>
-        <label for="userName">Username: </label>
-        <input required type="text" id="userName" name="userName" />
-      </div>
-      <div>
-        <label for="password">Password: </label>
-        <input
-          required
-          minlength="8"
-          type="password"
-          id="password"
-          name="password"
-          aria-describedby="password-minlength"
-          autocomplete="new-password"
-        />
-      </div>
-      <button type="submit">Sign up</button>
-    </form>
+    <main>
+      <h1>Node Authentication</h1>
+      <section id="signUpScreen">
+        <h2>Sign up</h2>
+        <form id="signUpForm">
+          <div>
+            <label for="email">Email: </label>
+            <input
+              required
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+            />
+          </div>
+          <div>
+            <label for="fullName">Full Name: </label>
+            <input required type="text" id="fullName" name="fullName" />
+          </div>
+          <div>
+            <label for="userName">Username: </label>
+            <input required type="text" id="userName" name="userName" />
+          </div>
+          <div>
+            <label for="password">Password: </label>
+            <input
+              required
+              minlength="8"
+              type="password"
+              id="password"
+              name="password"
+              aria-describedby="password-minlength"
+              autocomplete="new-password"
+            />
+          </div>
+          <button type="submit">Sign up</button>
+        </form>
+      </section>
+      <section id="signInScreen">
+        <h2>Sign in</h2>
+        <form id="signInForm">
+          <div>
+            <label for="email">Email: </label>
+            <input
+              required
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+            />
+          </div>
+          <div>
+            <label for="password">Password: </label>
+            <input
+              required
+              minlength="8"
+              type="password"
+              id="password"
+              name="password"
+              aria-describedby="password-minlength"
+              autocomplete="new-password"
+            />
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </section>
+    </main>
 
     <script>
       (function () {
