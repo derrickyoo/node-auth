@@ -3,7 +3,8 @@ import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
 import path from "path";
 import { fileURLToPath } from "url";
-import { client, run } from "./db.js";
+import { run } from "./db.js";
+import { signup } from "./accounts/signup.js";
 
 // dotenv
 console.log(process.env.APP_NAME);
@@ -26,8 +27,13 @@ async function start() {
       root: path.join(__dirname, "public"),
     });
 
-    fastify.post("/api/signup", {}, (req, reply) => {
-      console.log("request: ", req.body);
+    fastify.post("/api/signup", {}, async (req) => {
+      try {
+        const userData = req.body;
+        await signup(userData);
+      } catch (err) {
+        console.error(err);
+      }
     });
 
     await fastify.listen({ port: 3000 });
