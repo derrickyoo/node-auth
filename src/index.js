@@ -25,7 +25,7 @@ async function start() {
   try {
     // Add plugin
     fastify.register(fastifyStatic, {
-      root: path.join(__dirname, "public"),
+      root: path.join(__dirname, "../public"),
     });
 
     fastify.post("/api/signup", {}, async (req) => {
