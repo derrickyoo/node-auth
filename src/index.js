@@ -42,9 +42,9 @@ async function start() {
     fastify.post("/api/signin", {}, async (req) => {
       try {
         const data = req.body;
+        const isAuthorized = await authorize(data);
 
-        // TODO: authorize user
-        await authorize(data);
+        console.log("isAuthorized: ", isAuthorized);
       } catch (err) {
         console.error(err);
       }

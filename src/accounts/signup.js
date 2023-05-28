@@ -15,8 +15,6 @@ async function signup(data) {
   // 3. 🔥 Hash with salt
   const hashedPassword = await hash(password, salt);
 
-  console.log("🥩🧂🔥", hashedPassword);
-
   // 4. ✨ Store in database
   const result = await user.insertOne({
     ...user,
