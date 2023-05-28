@@ -9,7 +9,7 @@ import { register } from "./accounts/register.js";
 import { run } from "./db.js";
 
 // dotenv
-console.log(process.env.APP_NAME);
+console.log("👾 app: ", process.env.APP_NAME);
 
 // ESM specific to get access to the __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -34,9 +34,9 @@ async function start() {
       root: path.join(__dirname, "../public"),
     });
 
-    app.post("/api/signup", {}, async (req) => {
+    app.post("/api/signup", {}, async (request) => {
       try {
-        const data = req.body;
+        const data = request.body;
         const userId = await register(data);
 
         console.log(userId);
@@ -45,12 +45,12 @@ async function start() {
       }
     });
 
-    app.post("/api/signin", {}, async (req, reply) => {
+    app.post("/api/signin", {}, async (request, reply) => {
       try {
-        const data = req.body;
+        const data = request.body;
         const isAuthorized = await authorize(data);
 
-        console.log("isAuthorized: ", isAuthorized);
+        console.log("✅ isAuthorized: ", isAuthorized);
 
         // 1. 🪙 Generate auth tokens
 
@@ -69,6 +69,14 @@ async function start() {
       } catch (err) {
         console.error(err);
       }
+    });
+
+    app.get("/test", (request, reply) => {
+      console.log("🍪 cookie: ", request.cookies.testCookie);
+
+      reply.send({
+        data: "test route",
+      });
     });
 
     await app.listen({ port: 3000 });
