@@ -16,11 +16,23 @@ const fastify = Fastify({
   logger: true,
 });
 
-// Add plugin
-fastify.register(fastifyStatic, {
-  root: path.join(__dirname, "public"),
-});
+/**
+ * Run the server!
+ */
+async function start() {
+  try {
+    // Add plugin
+    fastify.register(fastifyStatic, {
+      root: path.join(__dirname, "public"),
+    });
 
-fastify.listen({ port: 3000 }, (err, address) => {
-  if (err) throw err;
+    await fastify.listen({ port: 3000 });
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+}
+
+run().then(() => {
+  start();
 });
