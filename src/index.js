@@ -29,8 +29,10 @@ async function start() {
 
     fastify.post("/api/signup", {}, async (req) => {
       try {
-        const userData = req.body;
-        await signup(userData);
+        const data = req.body;
+        const userId = await signup(data);
+
+        console.log(userId);
       } catch (err) {
         console.error(err);
       }

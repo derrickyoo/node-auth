@@ -2,9 +2,12 @@ import bcrypt from "bcryptjs";
 
 const { genSalt, hash } = bcrypt;
 
-async function signup(user) {
+async function signup(data) {
+  // Dynamic import (useful only when needed)
+  const { user } = await import("../user/user.js");
+
   // 1. 🥩 Plain text password
-  const { password } = user;
+  const { password, email } = data;
 
   // 2. 🧂 Generate salt
   const salt = await genSalt(10);
@@ -15,8 +18,16 @@ async function signup(user) {
   console.log("🥩🧂🔥", hashedPassword);
 
   // 4. ✨ Store in database
+  const result = await user.insertOne({
+    ...user,
+    email: {
+      address: email,
+      verified: false,
+    },
+    password: hashedPassword,
+  });
 
-  // return the user from the database
+  return result.insertedId;
 }
 
 export { signup };
