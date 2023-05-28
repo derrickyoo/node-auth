@@ -39,12 +39,18 @@ async function start() {
       }
     });
 
-    fastify.post("/api/signin", {}, async (req) => {
+    fastify.post("/api/signin", {}, async (req, reply) => {
       try {
         const data = req.body;
         const isAuthorized = await authorize(data);
 
         console.log("isAuthorized: ", isAuthorized);
+
+        // 1. 🪙 Generate auth tokens
+
+        // 2. 🍪 Set HttpOnly cookies
+
+        // 3. ✅ Send back in the response (or reply)
       } catch (err) {
         console.error(err);
       }
