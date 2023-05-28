@@ -26,6 +26,10 @@ async function start() {
       root: path.join(__dirname, "public"),
     });
 
+    fastify.post("/api/signup", {}, (req, reply) => {
+      console.log("request: ", req.body);
+    });
+
     await fastify.listen({ port: 3000 });
   } catch (err) {
     fastify.log.error(err);
