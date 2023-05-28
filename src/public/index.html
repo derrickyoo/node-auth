@@ -4,9 +4,43 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Node Auth</title>
   </head>
   <body>
-    <h1>Hello</h1>
+    <h1>Node Authentication</h1>
+    <h2>Sign up</h2>
+    <form id="signUpForm">
+      <div>
+        <label for="email">Email: </label>
+        <input
+          required
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="email"
+        />
+      </div>
+      <div>
+        <label for="fullName">Full Name: </label>
+        <input required type="text" id="fullName" name="fullName" />
+      </div>
+      <div>
+        <label for="userName">Username: </label>
+        <input type="text" id="userName" name="userName" required />
+      </div>
+      <div>
+        <label for="password">Password: </label>
+        <input
+          required
+          minlength="4"
+          type="password"
+          id="password"
+          name="password"
+          aria-describedby="password-minlength"
+          autocomplete="new-password"
+        />
+      </div>
+      <button type="submit">Sign up</button>
+    </form>
   </body>
 </html>
