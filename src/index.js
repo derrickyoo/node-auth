@@ -8,8 +8,8 @@ import { authorize } from "./accounts/authorize.js";
 import { register } from "./accounts/register.js";
 import { run } from "./db.js";
 
-// dotenv
-console.log("👾 app: ", process.env.APP_NAME);
+// Test dotenv
+console.log("🍎 App: ", process.env.APP_NAME);
 
 // ESM specific to get access to the __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -41,7 +41,7 @@ async function start() {
 
         console.log(userId);
       } catch (err) {
-        console.error(err);
+        app.log.error(err);
       }
     });
 
@@ -50,7 +50,7 @@ async function start() {
         const data = request.body;
         const isAuthorized = await authorize(data);
 
-        console.log("✅ isAuthorized: ", isAuthorized);
+        console.log("🔓 isAuthorized: ", isAuthorized);
 
         // 1. 🪙 Generate auth tokens
 
@@ -67,7 +67,7 @@ async function start() {
           data: "test response",
         });
       } catch (err) {
-        console.error(err);
+        app.log.error(err);
       }
     });
 
