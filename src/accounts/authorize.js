@@ -20,7 +20,7 @@ async function authorize(data) {
     const isAuthorized = await compare(password, currentPassword);
 
     // 4. ✅ Return boolean
-    return isAuthorized;
+    return { isAuthorized, userId: currentUser._id };
   } catch (err) {
     throw new Error(`User authorization failed with ${err}`);
   }

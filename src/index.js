@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { authorize } from "./accounts/authorize.js";
 import { register } from "./accounts/register.js";
+import { signIn } from "./accounts/signIn.js";
 import { run } from "./db.js";
 
 // Test dotenv
@@ -48,9 +49,13 @@ async function start() {
     app.post("/api/signin", {}, async (request, reply) => {
       try {
         const data = request.body;
-        const isAuthorized = await authorize(data);
+        const { isAuthorized, userId } = await authorize(data);
 
         console.log("🔓 isAuthorized: ", isAuthorized);
+
+        if (isAuthorized) {
+          await signIn(userId, request, reply);
+        }
 
         // 1. 🪙 Generate auth tokens
 
