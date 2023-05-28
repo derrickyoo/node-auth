@@ -26,13 +26,13 @@
       </div>
       <div>
         <label for="userName">Username: </label>
-        <input type="text" id="userName" name="userName" required />
+        <input required type="text" id="userName" name="userName" />
       </div>
       <div>
         <label for="password">Password: </label>
         <input
           required
-          minlength="4"
+          minlength="8"
           type="password"
           id="password"
           name="password"
@@ -42,5 +42,30 @@
       </div>
       <button type="submit">Sign up</button>
     </form>
+
+    <script>
+      (function () {
+        const form = document.querySelector("#signUpForm");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const values = Object.values(form).reduce(
+            (accumulator, currentValue) => {
+              if (currentValue.name) {
+                accumulator[currentValue.name] = currentValue.value;
+              }
+
+              return accumulator;
+            },
+            {}
+          );
+
+          console.log("values", values);
+
+          console.log("SUBMIT EVENT");
+        });
+      })();
+    </script>
   </body>
 </html>
