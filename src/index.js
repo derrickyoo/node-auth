@@ -33,6 +33,6 @@ async function start() {
   }
 }
 
-run().then(() => {
-  start();
-});
+run()
+  .then(() => start())
+  .catch(console.dir);
