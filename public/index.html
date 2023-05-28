@@ -17,18 +17,18 @@
             <input
               required
               type="email"
-              id="email"
+              id="signUpemail"
               name="email"
               autocomplete="email"
             />
           </div>
           <div>
             <label for="fullName">Full Name: </label>
-            <input required type="text" id="fullName" name="fullName" />
+            <input required type="text" id="signUpFullName" name="fullName" />
           </div>
           <div>
             <label for="userName">Username: </label>
-            <input required type="text" id="userName" name="userName" />
+            <input required type="text" id="signUpUserName" name="userName" />
           </div>
           <div>
             <label for="password">Password: </label>
@@ -36,7 +36,7 @@
               required
               minlength="8"
               type="password"
-              id="password"
+              id="signUpPassword"
               name="password"
               aria-describedby="password-minlength"
               autocomplete="new-password"
@@ -53,7 +53,7 @@
             <input
               required
               type="email"
-              id="email"
+              id="signInEmail"
               name="email"
               autocomplete="email"
             />
@@ -64,7 +64,7 @@
               required
               minlength="8"
               type="password"
-              id="password"
+              id="signInPassword"
               name="password"
               aria-describedby="password-minlength"
               autocomplete="new-password"
@@ -77,13 +77,15 @@
 
     <script>
       (function () {
-        const form = document.querySelector("#signUpForm");
+        // Not DRY code, but good enough for now for demonstration purposes
 
-        form.addEventListener("submit", async (e) => {
+        const signUpForm = document.querySelector("#signUpForm");
+
+        signUpForm.addEventListener("submit", async (e) => {
           e.preventDefault();
 
           try {
-            const data = Object.values(form).reduce(
+            const data = Object.values(signUpForm).reduce(
               (accumulator, currentValue) => {
                 if (currentValue.name) {
                   accumulator[currentValue.name] = currentValue.value;
@@ -103,6 +105,37 @@
             });
 
             console.log("signUpForm: ", data);
+          } catch (err) {
+            console.error(err);
+          }
+        });
+
+        const signInForm = document.querySelector("#signInForm");
+
+        signInForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          try {
+            const data = Object.values(signInForm).reduce(
+              (accumulator, currentValue) => {
+                if (currentValue.name) {
+                  accumulator[currentValue.name] = currentValue.value;
+                }
+
+                return accumulator;
+              },
+              {}
+            );
+
+            const res = await fetch("/api/signin", {
+              method: "POST",
+              body: JSON.stringify(data),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            });
+
+            console.log("signInForm: ", data);
           } catch (err) {
             console.error(err);
           }
