@@ -3,6 +3,7 @@ import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
 import path from "path";
 import { fileURLToPath } from "url";
+import { client, run } from "./db.js";
 
 // dotenv
 console.log(process.env.APP_NAME);

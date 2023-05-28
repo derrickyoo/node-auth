@@ -27,3 +27,5 @@ async function run() {
 }
 
 run().catch(console.dir);
+
+export { client, run };
