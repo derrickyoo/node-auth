@@ -1,5 +1,5 @@
-import mongo from "mongodb";
 import jwt from "jsonwebtoken";
+import mongo from "mongodb";
 
 const { ObjectId } = mongo;
 

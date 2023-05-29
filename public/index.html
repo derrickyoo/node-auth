@@ -83,9 +83,23 @@
           <button type="submit">Sign in</button>
         </form>
       </section>
+      <section id="user-authenticated-screen">
+        <h2>Sign Out</h2>
+        <button onclick="signOut()">Sign out</button>
+      </section>
     </main>
 
     <script>
+      async function signOut() {
+        try {
+          const res = await fetch("/api/signout", {
+            method: "POST",
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
       (function () {
         // Not DRY code, but good enough for now for demonstration purposes
 

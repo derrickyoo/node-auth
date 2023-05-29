@@ -9,6 +9,7 @@ import { register } from "./accounts/register.js";
 import { signIn } from "./accounts/signIn.js";
 import { run } from "./db.js";
 import { getUserFromCookies } from "./accounts/user.js";
+import { signOut } from "./accounts/signOut.js";
 
 // Test dotenv
 console.log("🍎 App: ", process.env.APP_NAME);
@@ -63,6 +64,17 @@ async function start() {
 
         reply.send({
           data: "User authorization failed",
+        });
+      } catch (err) {
+        app.log.error(err);
+      }
+    });
+
+    app.post("/api/signout", {}, async (request, reply) => {
+      try {
+        await signOut(request, reply);
+        reply.send({
+          data: "User signed out",
         });
       } catch (err) {
         app.log.error(err);
