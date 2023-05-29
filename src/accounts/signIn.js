@@ -17,7 +17,7 @@ async function signIn(userId, request, reply) {
   );
 
   const now = new Date();
-  const refreshExpires = now.setDate(now.getDate + 30);
+  const refreshExpires = now.setDate(now.getDate() + 30);
 
   // 3. 🍪 Set cookie
   reply
