@@ -83,7 +83,7 @@ async function start() {
 
     app.get("/test", {}, async (request, reply) => {
       try {
-        const user = await getUserFromCookies(request);
+        const user = await getUserFromCookies(request, reply);
         console.log(user);
 
         if (user?._id) {
@@ -98,8 +98,6 @@ async function start() {
       } catch (err) {
         app.log.error(err);
       }
-      // 1. Verify user login
-      // 2. Return user email, if exists, otherwise unauthorized
 
       reply.send({
         data: "Test route",
