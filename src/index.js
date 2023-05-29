@@ -8,6 +8,7 @@ import { authorize } from "./accounts/authorize.js";
 import { register } from "./accounts/register.js";
 import { signIn } from "./accounts/signIn.js";
 import { run } from "./db.js";
+import { getUserFromCookies } from "./accounts/user.js";
 
 // Test dotenv
 console.log("🍎 App: ", process.env.APP_NAME);
@@ -68,8 +69,14 @@ async function start() {
       }
     });
 
-    app.get("/test", (request, reply) => {
-      console.log("🍪 cookie: ", request.cookies.testCookie);
+    app.get("/test", {}, async (request, reply) => {
+      try {
+        const user = getUserFromCookies(request);
+      } catch (err) {
+        app.log.error(err);
+      }
+      // 1. Verify user login
+      // 2. Return user email, if exists, otherwise unauthorized
 
       reply.send({
         data: "test route",
