@@ -4,12 +4,13 @@ const JWTSignature = process.env.JWT_SIGNATURE;
 
 async function getUserFromCookies(request) {
   try {
-    // Check Access Token
-    if (request?.cookies?.accessToken) {
-      // If Access Token
-      const { accessToken } = request.cookies;
+    // Dynamic import (useful only when needed)
+    const { user } = await import("../user/user.js");
 
-      // Decode Access Token
+    // 1. Check for Access Token
+    if (request?.cookies?.accessToken) {
+      // 2. Decode Access Token
+      const { accessToken } = request.cookies;
       const decodedAccessToken = jwt.verify(accessToken, JWTSignature);
 
       console.log("🍪 decodedAccessToken: ", decodedAccessToken);
@@ -30,6 +31,7 @@ async function getUserFromCookies(request) {
 
 async function refreshTokens() {
   try {
+    console.log("TODO: refreshTokens");
   } catch (err) {
     console.error(err);
   }
