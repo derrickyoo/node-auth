@@ -1,4 +1,7 @@
+import mongo from "mongodb";
 import jwt from "jsonwebtoken";
+
+const { ObjectId } = mongo;
 
 const JWTSignature = process.env.JWT_SIGNATURE;
 
@@ -14,9 +17,12 @@ async function getUserFromCookies(request) {
       const decodedAccessToken = jwt.verify(accessToken, JWTSignature);
 
       console.log("🍪 decodedAccessToken: ", decodedAccessToken);
+
+      return user.findOne({
+        _id: new ObjectId(decodedAccessToken?.userId),
+      });
     }
 
-    // return user from record
     // decode refresh token
     // look up session
     // confirm session is valid
