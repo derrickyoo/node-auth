@@ -2,13 +2,29 @@ import jwt from "jsonwebtoken";
 
 const JWTSignature = process.env.JWT_SIGNATURE;
 
-async function createTokens() {
+async function createTokens(userId, sessionToken) {
   try {
-    // 1. 🪙 Create Refresh Token (Session ID)
-    // 2. 🪙 Create Access Token (Session ID and User ID)
-    // 3. ✅ Return Refresh Token and Access Token
+    // 1. 🪙 Create Access Token (Session ID and User ID)
+    const accessToken = jwt.sign(
+      {
+        userId,
+        sessionToken,
+      },
+      JWTSignature
+    );
+
+    // 2. 🪙 Create Refresh Token (Session ID)
+    const refreshToken = jwt.sign(
+      {
+        sessionToken,
+      },
+      JWTSignature
+    );
+
+    // 3. ✅ Return tokens
+    return { accessToken, refreshToken };
   } catch (err) {
-    throw new Error(`JWT faiels with ${err}`);
+    throw new Error(`JWT creation failed with ${err}`);
   }
 }
 

@@ -5,7 +5,7 @@ async function createSession(userId, connection) {
     // Dynamic import (useful only when needed)
     const { session } = await import("../session/session.js");
 
-    // 1. 🪙 Generate a session token
+    // 1. 🪙 Generate a Session Token
     const sessionToken = randomBytes(43).toString("hex");
 
     // 2. 💻 Retrieve connection information from Fastify (User-Agent, IP, etc.)
@@ -22,8 +22,8 @@ async function createSession(userId, connection) {
       createdAt: new Date(),
     });
 
-    // 4. ✅ Return session token
-    return sessionToken;
+    // 4. ✅ Return Session Token
+    return { sessionToken };
   } catch (err) {
     throw new Error(`Session creation failed with ${err}`);
   }

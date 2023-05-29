@@ -55,21 +55,13 @@ async function start() {
 
         if (isAuthorized) {
           await signIn(userId, request, reply);
+          reply.send({
+            data: "User is signed in",
+          });
         }
 
-        // 1. 🪙 Generate auth tokens
-
-        // 2. 🍪 Set HttpOnly cookies
-        reply.setCookie("testCookie", "test value", {
-          path: "/",
-          domain: "localhost",
-          httpOnly: true,
-          // secure: true // Requires HTTPS
-        });
-
-        // 3. ✅ Send back in the response (or reply)
         reply.send({
-          data: "test response",
+          data: "User authorization failed",
         });
       } catch (err) {
         app.log.error(err);
