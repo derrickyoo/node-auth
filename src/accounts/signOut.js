@@ -10,13 +10,11 @@ async function signOut(request, reply) {
     if (request?.cookies?.refreshToken) {
       // 2. 🍻 Decode Session Token from Refresh Token
       const { refreshToken } = request.cookies;
-      const decodedRefreshToken = jwt.verify(refreshToken, JWTSignature);
-
-      console.log("🍪 decodedRefreshToken: ", decodedRefreshToken);
+      const { sessionToken } = jwt.verify(refreshToken, JWTSignature);
 
       // 3. ✨ Delete current session in the database
       await session.deleteOne({
-        sessionToken: decodedRefreshToken.sessionToken,
+        sessionToken,
       });
     }
 
