@@ -72,15 +72,20 @@ async function start() {
         if (isAuthorized) {
           await signIn(userId, request, reply);
           reply.send({
-            data: "User is signed in",
+            data: {
+              status: "SUCCESS",
+              userId,
+            },
           });
         }
-
-        reply.send({
-          data: "User authorization failed",
-        });
       } catch (err) {
         app.log.error(err);
+
+        reply.send({
+          data: {
+            status: "FAILED",
+          },
+        });
       }
     });
 
