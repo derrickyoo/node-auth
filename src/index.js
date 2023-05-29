@@ -44,6 +44,7 @@ async function start() {
 
         if (userId) {
           await signIn(userId, request, reply);
+
           reply.send({
             data: {
               status: "SUCCESS",
@@ -71,6 +72,7 @@ async function start() {
 
         if (isAuthorized) {
           await signIn(userId, request, reply);
+
           reply.send({
             data: {
               status: "SUCCESS",
@@ -92,11 +94,20 @@ async function start() {
     app.post("/api/signout", {}, async (request, reply) => {
       try {
         await signOut(request, reply);
+
         reply.send({
-          data: "User signed out",
+          data: {
+            status: "SUCCESS",
+          },
         });
       } catch (err) {
         app.log.error(err);
+
+        reply.send({
+          data: {
+            status: "FAILED",
+          },
+        });
       }
     });
 
