@@ -37,14 +37,28 @@ async function start() {
       root: path.join(__dirname, "../public"),
     });
 
-    app.post("/api/signup", {}, async (request) => {
+    app.post("/api/signup", {}, async (request, reply) => {
       try {
         const data = request.body;
         const userId = await register(data);
 
-        console.log(userId);
+        if (userId) {
+          await signIn(userId, request, reply);
+          reply.send({
+            data: {
+              status: "SUCCESS",
+              userId,
+            },
+          });
+        }
       } catch (err) {
         app.log.error(err);
+
+        reply.send({
+          data: {
+            status: "FAILED",
+          },
+        });
       }
     });
 
