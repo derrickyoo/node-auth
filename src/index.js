@@ -14,7 +14,9 @@ import { signOut } from "./accounts/signOut.js";
 // Test dotenv
 console.log("🍎 App: ", process.env.APP_NAME);
 
-// ESM specific to get access to the __dirname
+// ESM specific features ("type": "module")
+// Get access to the __dirname which is normally available
+// Get metadata from our files using import.meta
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
