@@ -1,4 +1,4 @@
-import "./env.js";
+import "./env.js"; // Load and run file immediately when there is no named or default import
 import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
 import fastifyCookie from "@fastify/cookie";
