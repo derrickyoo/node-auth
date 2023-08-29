@@ -26,7 +26,7 @@ async function getUserFromCookies(request, reply) {
 
     const { session } = await import("../session/session.js");
 
-    // 1. Check for Refres Token
+    // 1. Check for Refresh Token
     if (request?.cookies?.refreshToken) {
       // 2. Decode Refresh Token
       const { refreshToken } = request.cookies;
