@@ -34,6 +34,7 @@ async function start() {
     await app.register(cors, {
       // put your options here
       origin: [/\.nodeauth.dev/, "https://nodeauth.dev"],
+      credentials: true, // include credentials
     });
 
     // Add plugin
