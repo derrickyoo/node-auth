@@ -1,15 +1,16 @@
 import "./env.js"; // Load and run file immediately when there is no named or default import
+import fastifyCookie from "@fastify/cookie";
+import cors from "@fastify/cors";
 import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
-import fastifyCookie from "@fastify/cookie";
 import path from "path";
 import { fileURLToPath } from "url";
 import { authorize } from "./accounts/authorize.js";
 import { register } from "./accounts/register.js";
 import { signIn } from "./accounts/signIn.js";
-import { run } from "./db.js";
-import { getUserFromCookies } from "./accounts/user.js";
 import { signOut } from "./accounts/signOut.js";
+import { getUserFromCookies } from "./accounts/user.js";
+import { run } from "./db.js";
 
 // Test dotenv
 console.log("🍎 App: ", process.env.APP_NAME);
@@ -29,6 +30,12 @@ const app = Fastify({
  */
 async function start() {
   try {
+    // Add plugin
+    await app.register(cors, {
+      // put your options here
+      origin: [/\.nodeauth.dev/, "https://nodeauth.dev"],
+    });
+
     // Add plugin
     app.register(fastifyCookie, {
       secret: process.env.COOKIE_SIGNATURE,

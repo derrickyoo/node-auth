@@ -123,6 +123,7 @@
             const res = await fetch("https://api.nodeauth.dev/api/signup", {
               method: "POST",
               body: JSON.stringify(data),
+              credentials: "include",
               headers: {
                 "Content-type": "application/json; charset=UTF-8",
               },
@@ -154,6 +155,7 @@
             const res = await fetch("https://api.nodeauth.dev/api/signin", {
               method: "POST",
               body: JSON.stringify(data),
+              credentials: "include",
               headers: {
                 "Content-type": "application/json; charset=UTF-8",
               },
