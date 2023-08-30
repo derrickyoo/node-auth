@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const JWTSignature = process.env.JWT_SIGNATURE;
+const JWT_SIGNATURE = process.env.JWT_SIGNATURE;
 
 async function signOut(request, reply) {
   try {
@@ -10,7 +10,7 @@ async function signOut(request, reply) {
     if (request?.cookies?.refreshToken) {
       // 2. 🍻 Decode Session Token from Refresh Token
       const { refreshToken } = request.cookies;
-      const { sessionToken } = jwt.verify(refreshToken, JWTSignature);
+      const { sessionToken } = jwt.verify(refreshToken, JWT_SIGNATURE);
 
       // 3. ✨ Delete current session in the database
       await session.deleteOne({

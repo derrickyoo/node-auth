@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const JWTSignature = process.env.JWT_SIGNATURE;
+const JWT_SIGNATURE = process.env.JWT_SIGNATURE;
 
 async function createTokens(userId, sessionToken) {
   try {
@@ -10,7 +10,7 @@ async function createTokens(userId, sessionToken) {
         userId,
         sessionToken,
       },
-      JWTSignature
+      JWT_SIGNATURE
     );
 
     // 2. 🪙 Create Refresh Token (Session ID)
@@ -18,7 +18,7 @@ async function createTokens(userId, sessionToken) {
       {
         sessionToken,
       },
-      JWTSignature
+      JWT_SIGNATURE
     );
 
     // 3. ✅ Return tokens

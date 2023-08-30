@@ -4,7 +4,8 @@ import { createTokens } from "./tokens.js";
 
 const { ObjectId } = mongo;
 
-const JWTSignature = process.env.JWT_SIGNATURE;
+const JWT_SIGNATURE = process.env.JWT_SIGNATURE;
+const { ROOT_DOMAIN } = process.env;
 
 async function getUserFromCookies(request, reply) {
   try {
@@ -15,7 +16,7 @@ async function getUserFromCookies(request, reply) {
     if (request?.cookies?.accessToken) {
       // 2. Decode Access Token
       const { accessToken } = request.cookies;
-      const decodedAccessToken = jwt.verify(accessToken, JWTSignature);
+      const decodedAccessToken = jwt.verify(accessToken, JWT_SIGNATURE);
 
       console.log("🍪 decodedAccessToken: ", decodedAccessToken);
 
@@ -30,7 +31,7 @@ async function getUserFromCookies(request, reply) {
     if (request?.cookies?.refreshToken) {
       // 2. Decode Refresh Token
       const { refreshToken } = request.cookies;
-      const { sessionToken } = jwt.verify(refreshToken, JWTSignature);
+      const { sessionToken } = jwt.verify(refreshToken, JWT_SIGNATURE);
 
       // 3. Look up session
       const currentSession = await session.findOne({
@@ -72,13 +73,13 @@ async function refreshTokens(sessionToken, userId, reply) {
     reply
       .setCookie("accessToken", accessToken, {
         path: "/",
-        domain: "localhost",
+        domain: ROOT_DOMAIN,
         httpOnly: true,
         // secure: true // Requires HTTPS
       })
       .setCookie("refreshToken", refreshToken, {
         path: "/",
-        domain: "localhost",
+        domain: ROOT_DOMAIN,
         httpOnly: true,
         expires: refreshExpires,
         // secure: true // Requires HTTPS
