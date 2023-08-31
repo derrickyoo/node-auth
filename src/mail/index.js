@@ -6,8 +6,8 @@ async function sendEmail() {
 
     let transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
       auth: {
         user: testAccount.user,
         pass: testAccount.pass,
@@ -23,7 +23,7 @@ async function sendEmail() {
       html: "<b>Hello world?</b>", // html body
     });
 
-    console.log("Message sent: %s", info.messageId);
+    console.log("💌 Message sent: %s", info.messageId);
   } catch (e) {
     console.error(e);
   }

@@ -31,7 +31,7 @@ const app = Fastify({
  */
 async function start() {
   try {
-    sendEmail();
+    await sendEmail();
 
     // Add plugin
     await app.register(cors, {
