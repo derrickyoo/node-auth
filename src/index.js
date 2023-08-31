@@ -11,6 +11,7 @@ import { signIn } from "./accounts/signIn.js";
 import { signOut } from "./accounts/signOut.js";
 import { getUserFromCookies } from "./accounts/user.js";
 import { run } from "./db.js";
+import { sendEmail } from "./mail/index.js";
 
 // Test dotenv
 console.log("🍎 App: ", process.env.APP_NAME);
@@ -30,6 +31,8 @@ const app = Fastify({
  */
 async function start() {
   try {
+    sendEmail();
+
     // Add plugin
     await app.register(cors, {
       // put your options here
