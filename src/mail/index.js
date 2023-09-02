@@ -1,6 +1,12 @@
 import nodemailer from "nodemailer";
 
-async function sendEmail() {
+async function sendEmail({
+  from = '"Fred Foo 👻" <foo@example.com>', // sender address
+  to = "bar@example.com, baz@example.com", // list of receivers
+  subject,
+  text,
+  html,
+}) {
   try {
     let testAccount = await nodemailer.createTestAccount();
 
@@ -16,11 +22,11 @@ async function sendEmail() {
 
     // send mail with defined transport object
     const info = await transporter.sendMail({
-      from: '"Fred Foo 👻" <foo@example.com>', // sender address
-      to: "bar@example.com, baz@example.com", // list of receivers
-      subject: "Hello ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
+      from,
+      to,
+      subject,
+      text,
+      html,
     });
 
     console.log("📭 Message sent: %s", info.messageId);

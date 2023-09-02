@@ -31,7 +31,11 @@ const app = Fastify({
  */
 async function start() {
   try {
-    await sendEmail();
+    await sendEmail({
+      subject: "Hello ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: "<b>Hello world?</b>", // html body
+    });
 
     // Add plugin
     await app.register(cors, {
